@@ -19,6 +19,11 @@ The aim of this task is to build a system that takes an image as an input from a
 | 2 |Requirement Gathering completed                                                | 11/02
 | 3 |Basic setup completed                                                          | 11/02
 | 4 |Created folder structure and configuration file for the application            | 11/02
+| 5 |Read articles related to this project. Saw few examples.                       | 11/03
+| 6 |Created HTML form that accepts image media and stores in Local                 | 11/03
+| 7 |Working on storing the image with a unique uuid.                               | 11/03
+
+
 
 
 - - - -
