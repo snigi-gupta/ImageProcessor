@@ -22,6 +22,19 @@ The aim of this task is to build a system that takes an image as an input from a
 | 5 |Read articles related to this project. Saw few examples.                       | 11/03
 | 6 |Created HTML form that accepts image media and stores in Local                 | 11/03
 | 7 |Working on storing the image with a unique uuid.                               | 11/03
+| 8 |Finished storing the image with a unique uuid.                                 | 11/04
+| 9 |Added a few image config						                                | 11/04
+|10 |Return uploaded image feature completed		                                | 11/04
+|11 |Created a new template for returning the uploaded                              | 11/05
+|12 |Fixed some file path issues                                                    | 11/05
+|13 |Created image url for 'edit' route                                             | 11/05
+|14 |Created route to display submitted image                                       | 11/06
+|15 |Enabled resizing the image                                                     | 11/06
+|16 |Converting image to webp format. Having issues with conversion                 | 11/07
+
+
+
+
 
 
 
@@ -57,6 +70,7 @@ At the end of this task, there should a deployable code that takes in an input i
  - Using OpenCV or equivalent for image processing
  - Using Flask as Web Application Framework
  - Using PyCharm as IDE
+ - Using Jinja2 as template engine
  - Yet to decide on caching/ API Caching and CDN technologies
  
 
