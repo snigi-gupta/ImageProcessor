@@ -4,10 +4,10 @@
 The aim of this task is to build a system that takes an image as an input from a user as a form of request and allows the user to edit/transform the image via url-parameters.
 
 ## Software Development Lifecycle Model
-- [ ] Phase 0: Planning
-- [ ] Phase 1: Requirement Gathering and Analysis
-- [ ] Phase 2: Setup of Project and versioning system
-- [ ] Phase 3: Designing
+- [x] Phase 0: Planning
+- [x] Phase 1: Requirement Gathering and Analysis
+- [x] Phase 2: Setup of Project and versioning system
+- [ ] Phase 3: Design
 - [ ] Phase 4: Development
 - [ ] Phase 5: Testing
 - [ ] Phase 6: Deployment
@@ -31,7 +31,8 @@ The aim of this task is to build a system that takes an image as an input from a
 |14 |Created route to display submitted image                                       | 11/06
 |15 |Enabled resizing the image                                                     | 11/06
 |16 |Converting image to webp format. Having issues with conversion                 | 11/07
-
+|17 |converting image to webp successfull, however, image not getting saved in webp | 11/08
+|18 |Understanding caching and researching library fit for the project				| 11/08
 
 
 
@@ -58,19 +59,21 @@ The aim of this task is to build a system that takes an image as an input from a
 **4.	What is the expected output?**<br>
 At the end of this task, there should a deployable code that takes in an input image and returns a url using which a user can alter and manipulate the image. This project will allow basic operations to be applicable on the image. Namely changing width, height, and crop.<br>
 **5. Specific Requirements**<br>
-  - URLs are immutable<br>
-  - Source file should be processed based on URL parameters<br>
-  - Processed image should be cached to server 1 or 1 million requests to the same image with same URL parameters<br>
-  - A 5 second cut-off should be aimed for total processing for each image<br>
-  - This project should be completed in two weeks. Project Start Date: November 2, 2020 | Project End Date: November 16, 2020<br>
+  - URLs are immutable.<br>
+  - Source file should be processed based on URL parameters.<br>
+  - Processed image should be cached to server 1 or 1 million requests to the same image with same URL parameters.<br>
+  - A 5 second cut-off should be aimed for total processing for each image.<br>
+  - This project should be completed in two weeks. Project Start Date: November 2, 2020 | Project End Date: November 16, 2020.<br>
  - - - -
  ### Phase 2 - Setup of Project and versioning system
- - Using Python 3 as coding language
- - Using basic HTML for forms
- - Using OpenCV or equivalent for image processing
- - Using Flask as Web Application Framework
- - Using PyCharm as IDE
- - Using Jinja2 as template engine
- - Yet to decide on caching/ API Caching and CDN technologies
- 
-
+ - Using Python 3 as coding language.
+ - Using basic HTML for forms.
+ - Using OpenCV or equivalent for image processing.
+ - Using Flask as Web Application Framework.
+ - Using PyCharm as IDE.
+ - Using Jinja2 as template engine.
+ - Yet to decide on caching/ API Caching and CDN technologies.
+ - - - -
+ ### Phase 2 and 3 - Design and Development
+- Create a file structure suitable for the project.
+- Create a simple architecture of wireframes, routes, and APIs.
