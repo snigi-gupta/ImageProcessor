@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, abort, send_file
 from werkzeug.utils import secure_filename
-from cachetools import cached, TTLCache
+from cachetools import cached, TTLCache, Cache
+from apscheduler.schedulers.background import BackgroundScheduler
 from PIL import Image, ImageDraw
 import os
-import io
 import uuid
-import cv2
+import time
+import atexit
 import numpy as np
 
 # file paths
@@ -17,8 +18,9 @@ app = Flask(__name__, template_folder=template_dir)
 cache = TTLCache(maxsize=1000, ttl=60)
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['jpg', 'png', 'gif', 'jpeg']
-IMAGE_FOLDER = os.path.join('static', 'images')
-app.config['IMAGE_DIR'] = IMAGE_FOLDER  # static\images
+# IMAGE_FOLDER = os.path.join('static', 'images')
+app.config['IMAGE_DIR'] = os.path.join('static', 'images')  # static\images
+app.config['CACHE_DIR'] = os.path.join('static', 'cache')  # static\cache
 
 
 # route to render upload.html template
@@ -66,10 +68,30 @@ def edit_file(file_name, img_height, img_width, img_rotate, img_ellipse=False):
     dsize = (int(img_width or org_width), int(img_height or org_height))
     new_img = org_img.resize(dsize)
 
-    
+    # rotate image
+    if img_rotate:
+        new_img = new_img.rotate(-int(img_rotate))
+
+    # crop circular
+    if img_ellipse:
+        h, w = new_img.size
+        npImage = np.array(new_img)
+
+        # create same size alpha layer with circle
+        alpha = Image.new('L', new_img.size, 0)
+        draw_alpha = ImageDraw.Draw(alpha)
+        draw_alpha.pieslice([0, 0, h, w], 0, 360, fill=255)
+
+        # convert alpha image to numpy array again
+        npAlpha = np.array(alpha)
+
+        # add alpha layer to RGB
+        npImage = np.dstack((npImage, npAlpha))
+
+        new_img = Image.fromarray(npImage)
 
     new_filename = '.'.join([secure_filename(str(uuid.uuid4())), file_extension])
-    new_file_path = os.path.join(app.config['IMAGE_DIR'], new_filename)
+    new_file_path = os.path.join(app.config['CACHE_DIR'], new_filename)
     new_img.save(new_file_path, 'webp')
     return new_file_path, url, file_name
 
@@ -85,6 +107,22 @@ def edit(file_name):
     new_file_path, url, new_file_name = edit_file(file_name, img_height, img_width, img_rotate, img_ellipse)
     return render_template("edit.html", images_dir=new_file_path, image_url=url, file_name=new_file_name)
 
+def delete_file():
+    images = os.listdir(app.config['CACHE_DIR'])
+    current_time = time.time()
+    for image in images:
+        img_path = os.path.join(app.config['CACHE_DIR'], image)
+        img_time = os.path.getmtime(img_path)
+        # print(current_time, img_path, img_time)
+        if current_time-img_time > 60:
+            os.remove(img_path)
+
 
 if __name__ == "__main__":
+
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=delete_file, trigger="interval", seconds=60)
+    scheduler.start()
     app.run(debug=True)
+    # Shut down the scheduler when exiting the app
+    atexit.register(lambda: scheduler.shutdown())
