@@ -9,7 +9,7 @@
 - [Testing and Deployment](#phase-5-and-6---testing-and-deployment)<br>
 - [Demo](#demo)<br>
 
-[Go to Bottom](#conclusion)
+[Go to Bottom](#demo)
 
 ## Objective:
 The aim of this task is to build a system that takes an image as an input from a user as a form of request and allows the user to edit/transform the image via url-parameters.
@@ -135,7 +135,11 @@ The following are the features the APIs provide:<br>
  
  - - - -
  ## Demo
+ To upload image
  ![upload_image](images/upload_image.gif)
+ 
+ To edit the image
+ ![edit_image](images/edit_image.gif)
  
  
 [Go to Top](#imageprocessor)
