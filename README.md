@@ -129,7 +129,7 @@ The following are the features the APIs provide:<br>
 - - - -
  ### Phase 5 and 6 - Testing and Deployment
  - A test script `test.py` was created to compute the performance of the API when simultaneous requests are hit. 
- - For 10 requests per second, the performance score was 0.1705 seconds.<br>
+ - The performance score was 0.1705 seconds when 10 requests were hit simultaneously (locally).<br>
  ![performance](images/performance.jpeg)
  - The application is deployed on Heroku
  
