@@ -75,14 +75,16 @@ def edit_file(file_name, img_height, img_width, img_rotate, img_type, img_ellips
     org_height, org_width = org_img.size
 
     #calculate the aspect ratio
-    # aspect_ratio = org_height/org_width
-    # if not img_width:
-    #     img_width = int(img_height)/aspect_ratio
-    # if not img_height:
-    #     img_height = int(img_width) * aspect_ratio
+    aspect_ratio = org_height/org_width
+    if not img_width and not img_height:
+        img_width, img_height = org_width, org_height
+    elif not img_width:
+        img_width = int(img_height)/aspect_ratio
+    elif not img_height:
+        img_height = int(img_width) * aspect_ratio
 
     # resizing the image
-    dsize = (int(img_width or org_width), int(img_height or org_height))
+    dsize = (int(img_width), int(img_height))
     new_img = org_img.resize(dsize)
 
     # rotate image
@@ -107,24 +109,16 @@ def edit_file(file_name, img_height, img_width, img_rotate, img_type, img_ellips
 
         new_img = Image.fromarray(npImage)
 
-    new_filename = secure_filename(str(uuid.uuid4()) + file_name[-1])
+    # convert to webp
+    if img_type:
+        file_extension = 'webp'
+        new_filename = secure_filename(str(uuid.uuid4()) + str(app.config['UPLOAD_EXTENSIONS'].index(file_extension)))
+    else:
+        new_filename = secure_filename(str(uuid.uuid4()) + file_name[-1])
     new_file_path = os.path.join(app.config['CACHE_DIR'], new_filename + "." + file_extension)
     new_img.save(new_file_path)
 
-    # new_filename = '.'.join([secure_filename(str(uuid.uuid4())), file_extension])
-    # new_file_path = os.path.join(app.config['CACHE_DIR'], new_filename)
-    # new_img.save(new_file_path, 'webp')
-
-    # if img_type:
-    #     file_extension = 'webp'
-    # new_filename = '.'.join([secure_filename(str(uuid.uuid4())), file_extension])
-    # print(new_filename)
-    # new_file_path = os.path.join(app.config['CACHE_DIR'], new_filename)
-    # print(new_file_path)
-    # new_img.save(new_file_path, file_extension)
-    # url = "http://127.0.0.1:5000/edit/" + new_filename
-
-    return new_file_path, url
+    return new_file_path, url, new_filename
 
 
 # route to display edited image
@@ -136,11 +130,10 @@ def edit(file_name):
     img_rotate = request.args.get('rotate')
     img_type = request.args.get('imgtype')
 
-    # if not img_width and not img_height:
-        # return render_template("edit.html", images_dir=file_path, image_url=url, file_name=file_name)
-
-    new_file_path, url = edit_file(file_name, img_height, img_width, img_rotate, img_type, img_ellipse)
+    new_file_path, url, new_file_name = edit_file(file_name, img_height, img_width, img_rotate, img_type, img_ellipse)
+    # file_name = file_name + "." + extension_map[file_name[-1]]
     return render_template("edit.html", images_dir=new_file_path, image_url=url, file_name=file_name)
+
 
 def delete_file():
     images = os.listdir(app.config['CACHE_DIR'])
