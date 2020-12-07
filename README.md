@@ -6,6 +6,7 @@
 - [Project Status](#project-status)<br>
 - [Planning, Requirement Gathering and Setup](#phase-0---planning)<br>
 - [Design and Development](#phase-3-and-4---design-and-development)<br>
+- [Testing and Deployment](#phase-5-and-6---testing-and-deployment)<br>
 - [Demo](#demo)<br>
 
 [Go to Bottom](#conclusion)
@@ -130,7 +131,11 @@ The following are the features the APIs provide:<br>
  - A test script was created to `test.py` to compute the performance of the API when simultaneous requests are hit. 
  - For 10 requests per second, the performance score was 0.1705 seconds.<br>
  ![performance](images/performance.jpeg)
+ - The application is deployed on Heroku
+ 
+ - - - -
+ ## Demo
+ ![upload_image](images/upload_image.gif)
  
  
- 
-[Go to Top](#ImageProcessor)
+[Go to Top](#imageprocessor)
