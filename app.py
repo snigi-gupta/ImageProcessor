@@ -15,7 +15,7 @@ template_dir = os.path.join(absolute_path, 'assets')  # D:\UB CSE\ImageProcessor
 
 # app configurations
 app = Flask(__name__, template_folder=template_dir)
-cache = TTLCache(maxsize=1000, ttl=60)
+cache = TTLCache(maxsize=1000, ttl=300)
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['jpg', 'jpeg', 'png', 'gif', 'webp']
 # IMAGE_FOLDER = os.path.join('static', 'images')
@@ -151,6 +151,6 @@ if __name__ == "__main__":
     scheduler = BackgroundScheduler()
     scheduler.add_job(func=delete_file, trigger="interval", seconds=60)
     scheduler.start()
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)
     # Shut down the scheduler when exiting the app
     atexit.register(lambda: scheduler.shutdown())
