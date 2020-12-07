@@ -125,4 +125,12 @@ The following are the features the APIs provide:<br>
 **5. Clickable Link**<br>
   * The edited image can be accessed as a link to be used by any API.<br>
 
+- - - -
+ ### Phase 5 and 6 - Testing and Deployment
+ - A test script was created to `test.py` to compute the performance of the API when simultaneous requests are hit. 
+ - For 10 requests per second, the performance score was 0.1705 seconds.<br>
+ ![performance](images/performance.jpeg)
+ 
+ 
+ 
 [Go to Top](#ImageProcessor)
