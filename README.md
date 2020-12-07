@@ -7,11 +7,11 @@ The aim of this task is to build a system that takes an image as an input from a
 - [x] Phase 0: Planning
 - [x] Phase 1: Requirement Gathering and Analysis
 - [x] Phase 2: Setup of Project and versioning system
-- [ ] Phase 3: Design
-- [ ] Phase 4: Development
-- [ ] Phase 5: Testing
-- [ ] Phase 6: Deployment
-- [ ] Phase 7: Deliverables
+- [x] Phase 3: Design
+- [x] Phase 4: Development
+- [x] Phase 5: Testing
+- [x] Phase 6: Deployment
+- [x] Phase 7: Deliverables
 - - - -
 | # |        Status                                                                 | Date 
 |---|-------------------------------------------------------------------------------|------

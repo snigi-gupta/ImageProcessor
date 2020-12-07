@@ -17,11 +17,19 @@ template_dir = os.path.join(absolute_path, 'assets')  # D:\UB CSE\ImageProcessor
 app = Flask(__name__, template_folder=template_dir)
 cache = TTLCache(maxsize=1000, ttl=60)
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
-app.config['UPLOAD_EXTENSIONS'] = ['jpg', 'png', 'gif', 'jpeg']
+app.config['UPLOAD_EXTENSIONS'] = ['jpg', 'jpeg', 'png', 'gif', 'webp']
 # IMAGE_FOLDER = os.path.join('static', 'images')
 app.config['IMAGE_DIR'] = os.path.join('static', 'images')  # static\images
 app.config['CACHE_DIR'] = os.path.join('static', 'cache')  # static\cache
 
+# extension mapping
+extension_map = {
+    "0": 'jpg',
+    "1": 'jpeg',
+    "2": 'png',
+    "3": 'gif',
+    "4": 'webp'
+}
 
 # route to render upload.html template
 @app.route('/')
@@ -38,31 +46,40 @@ def upload_file():
         temp_file_name = f.filename
         f = Image.open(f).convert("RGB")
         if temp_file_name != '':
-            unique_filename = str(uuid.uuid4())
             file_extension = temp_file_name.split('.')[1]
+
             if file_extension not in app.config['UPLOAD_EXTENSIONS']:
                 abort(400)
-            file_extension = 'webp'
-            file_name = '.'.join(
-                [secure_filename(unique_filename), file_extension])  # 5d8fe035-d9b0-4066-9334-53ec85f798df.jpeg
-            file_path = os.path.join(app.config['IMAGE_DIR'], file_name)
-            f.save(os.path.join(absolute_path, file_path), 'webp')
+            unique_filename = str(uuid.uuid4()) + str(app.config['UPLOAD_EXTENSIONS'].index(file_extension))
+
+            file_name = secure_filename(unique_filename)  # 5d8fe035-d9b0-4066-9334-53ec85f798df0 with mapping
+            file_path = os.path.join(app.config['IMAGE_DIR'], file_name + "." + file_extension)
+            f.save(os.path.join(absolute_path, file_path))
             url = "http://127.0.0.1:5000/edit/" + file_name
             return render_template("edit.html", images_dir=file_path, image_url=url, file_name=file_name)
 
 
 # caching function to display edited image
 @cached(cache)
-def edit_file(file_name, img_height, img_width, img_rotate, img_ellipse=False):
-    file_path = os.path.join(app.config['IMAGE_DIR'], file_name)
-    file_extension = file_name.split('.')[1]
-    url = "http://127.0.0.1:5000/edit/" + file_name
+def edit_file(file_name, img_height, img_width, img_rotate, img_type, img_ellipse=False):
 
+    # get extension
+    file_extension = extension_map[file_name[-1]]
+    file_path = os.path.join(app.config['IMAGE_DIR'], file_name + "." + file_extension)
+    # file_extension = file_name.split('.')[1]
+    url = "http://127.0.0.1:5000/edit/" + file_name
     # get original image
     org_img = Image.open(file_path).convert("RGB")
 
     # get original image dimensions if no URL parameters
     org_height, org_width = org_img.size
+
+    #calculate the aspect ratio
+    # aspect_ratio = org_height/org_width
+    # if not img_width:
+    #     img_width = int(img_height)/aspect_ratio
+    # if not img_height:
+    #     img_height = int(img_width) * aspect_ratio
 
     # resizing the image
     dsize = (int(img_width or org_width), int(img_height or org_height))
@@ -90,10 +107,24 @@ def edit_file(file_name, img_height, img_width, img_rotate, img_ellipse=False):
 
         new_img = Image.fromarray(npImage)
 
-    new_filename = '.'.join([secure_filename(str(uuid.uuid4())), file_extension])
-    new_file_path = os.path.join(app.config['CACHE_DIR'], new_filename)
-    new_img.save(new_file_path, 'webp')
-    return new_file_path, url, file_name
+    new_filename = secure_filename(str(uuid.uuid4()) + file_name[-1])
+    new_file_path = os.path.join(app.config['CACHE_DIR'], new_filename + "." + file_extension)
+    new_img.save(new_file_path)
+
+    # new_filename = '.'.join([secure_filename(str(uuid.uuid4())), file_extension])
+    # new_file_path = os.path.join(app.config['CACHE_DIR'], new_filename)
+    # new_img.save(new_file_path, 'webp')
+
+    # if img_type:
+    #     file_extension = 'webp'
+    # new_filename = '.'.join([secure_filename(str(uuid.uuid4())), file_extension])
+    # print(new_filename)
+    # new_file_path = os.path.join(app.config['CACHE_DIR'], new_filename)
+    # print(new_file_path)
+    # new_img.save(new_file_path, file_extension)
+    # url = "http://127.0.0.1:5000/edit/" + new_filename
+
+    return new_file_path, url
 
 
 # route to display edited image
@@ -103,9 +134,13 @@ def edit(file_name):
     img_width = request.args.get('width')
     img_ellipse = request.args.get('ellipse')
     img_rotate = request.args.get('rotate')
+    img_type = request.args.get('imgtype')
 
-    new_file_path, url, new_file_name = edit_file(file_name, img_height, img_width, img_rotate, img_ellipse)
-    return render_template("edit.html", images_dir=new_file_path, image_url=url, file_name=new_file_name)
+    # if not img_width and not img_height:
+        # return render_template("edit.html", images_dir=file_path, image_url=url, file_name=file_name)
+
+    new_file_path, url = edit_file(file_name, img_height, img_width, img_rotate, img_type, img_ellipse)
+    return render_template("edit.html", images_dir=new_file_path, image_url=url, file_name=file_name)
 
 def delete_file():
     images = os.listdir(app.config['CACHE_DIR'])
