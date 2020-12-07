@@ -12,6 +12,7 @@ The aim of this task is to build a system that takes an image as an input from a
 - [x] Phase 5: Testing
 - [x] Phase 6: Deployment
 - [x] Phase 7: Deliverables
+
 - - - -
 | # |        Status                                                                 | Date 
 |---|-------------------------------------------------------------------------------|------
@@ -30,15 +31,15 @@ The aim of this task is to build a system that takes an image as an input from a
 |13 |Created image url for 'edit' route                                             | 11/05
 |14 |Created route to display submitted image                                       | 11/06
 |15 |Enabled resizing the image                                                     | 11/06
-|16 |Converting image to webp format. Having issues with conversion                 | 11/07
-|17 |converting image to webp successfull, however, image not getting saved in webp | 11/08
-|18 |Understanding caching and researching library fit for the project				| 11/08
-
-
-
-
-
-
+|16 |Converting image to webp format. Having issues with conversion                 | 11/09
+|17 |Converting image to webp successfull, however, image not getting saved in webp | 11/10
+|18 |Understanding caching and researching library fit for the project				| 11/10
+|19 |Finished implementing caching.													| 11/11
+|20 |Testing and providing necessary comments.										| 11/12
+|21 |Added features to the processor. Image can be rotated and cropped (ellipse)	| 11/12
+|22 |Presentation and feedback														| 11/13
+|23 |Incorporated new changes as suggested and checked-in code						| 11/16
+|24 |Completeted documentation and code cleaning.									| 12/07
 
 - - - -
 ### Phase 0 - Planning
@@ -47,6 +48,7 @@ The aim of this task is to build a system that takes an image as an input from a
 *	Decide application tech-stack, architecture, approach, code-structure.
 *	Prepare Gantt-chart.
 *	Research and read about unknown components involved in the project.
+
 - - - -
 ### Phase 1 - Requirement Gathering
 **1. What is the problem that is being solved via this task?**<br>
@@ -54,26 +56,33 @@ Images require optimization specific to context to display quickly and with high
 Allowing a user to change image size or dimensions on a browser provides flexibility to the user to manipulate the image on-the-fly. This feature can be then used to improve website performance as delivery speed can be enhanced by delivering the optimal version of an image for a given context.<br>
 **2. Who will use this application?**<br>
 This application can be used by someone who is wanting to quickly change an image and have responsive images.<br>
-**3.	What is the objective of this task?**<br>
-The aim of this task is to build a system that takes an image as an input from a user as a form of request and allows the user to edit/transform the image via url-parameters. This task solves the underlying problem mentioned in point (1).<br>
-**4.	What is the expected output?**<br>
+**3. What is the objective of this task?**<br>
+The aim of this task is to build a system that takes an image as an input from a user as a form of request and allows the user to edit/transform the image via url-parameters. This task solves the underlying problem mentioned in point(1).<br>
+**4. What is the expected output?**<br>
 At the end of this task, there should a deployable code that takes in an input image and returns a url using which a user can alter and manipulate the image. This project will allow basic operations to be applicable on the image. Namely changing width, height, and crop.<br>
 **5. Specific Requirements**<br>
   - URLs are immutable.<br>
   - Source file should be processed based on URL parameters.<br>
-  - Processed image should be cached to server 1 or 1 million requests to the same image with same URL parameters.<br>
+  - Processed image should be cached to server. 1 or 1 million requests to the same image with same URL parameters.<br>
   - A 5 second cut-off should be aimed for total processing for each image.<br>
   - This project should be completed in two weeks. Project Start Date: November 2, 2020 | Project End Date: November 16, 2020.<br>
+**6. Additional Requirements given on 11/13**<br>
+  - Original image should not be lost. Store images in their original format. Provide an option to convert the image to .webp format (superior lossless and lossy compressed images for web applications).<br>
+  - Multiple requests should be possible.<br>
+  - Create a test script to test performance of 10 requests per second.
+  
  - - - -
  ### Phase 2 - Setup of Project and versioning system
  - Using Python 3 as coding language.
  - Using basic HTML for forms.
- - Using OpenCV or equivalent for image processing.
+ - Using PIL for image processing.
  - Using Flask as Web Application Framework.
  - Using PyCharm as IDE.
  - Using Jinja2 as template engine.
- - Yet to decide on caching/ API Caching and CDN technologies.
+ - Using cachetools for caching/ API Caching and CDN technologies.
+ 
  - - - -
- ### Phase 2 and 3 - Design and Development
+ ### Phase 3 and 4 - Design and Development
 - Create a file structure suitable for the project.
 - Create a simple architecture of wireframes, routes, and APIs.
+- Design the API
