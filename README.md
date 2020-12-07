@@ -1,5 +1,15 @@
 # ImageProcessor
 
+### Shortcut Links
+- [Objective](#objective)<br>
+- [Software Developement Lifecycle Model](#software-development-lifecycle-model)<br>
+- [Project Status](#project-status)<br>
+- [Planning, Requirement Gathering and Setup](#phase-0---planning)<br>
+- [Design and Development](#phase-3-and-4---design-and-development)<br>
+- [Demo](#demo)<br>
+
+[Go to Bottom](#conclusion)
+
 ## Objective:
 The aim of this task is to build a system that takes an image as an input from a user as a form of request and allows the user to edit/transform the image via url-parameters.
 
@@ -14,6 +24,7 @@ The aim of this task is to build a system that takes an image as an input from a
 - [x] Phase 7: Deliverables
 
 - - - -
+## Project Status
 | # |        Status                                                                 | Date 
 |---|-------------------------------------------------------------------------------|------
 | 1 |Bird-eye planning completed.                                                   | 11/02
@@ -114,4 +125,4 @@ The following are the features the APIs provide:<br>
 **5. Clickable Link**<br>
   * The edited image can be accessed as a link to be used by any API.<br>
 
-[Go to Top](#ImageProcessor)<a name="ImageProcessor"></a>
+[Go to Top](#ImageProcessor)
