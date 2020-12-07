@@ -114,3 +114,4 @@ The following are the features the APIs provide:<br>
 **5. Clickable Link**<br>
   * The edited image can be accessed as a link to be used by any API.<br>
 
+[Go to Top](#ImageProcessor)<a name="ImageProcessor"></a>
