@@ -51,7 +51,7 @@ The aim of this task is to build a system that takes an image as an input from a
 |21 |Added features to the processor. Image can be rotated and cropped (ellipse).	  | 11/12
 |22 |Presentation and feedback.														                          | 11/13
 |23 |Incorporated new changes as suggested and checked-in code.						          | 11/16
-|24 |Completeted documentation and code cleaning.									                  | 12/07
+|24 |Completed documentation and code cleaning.									                    | 12/07
 
 - - - -
 ### Phase 0 - Planning
@@ -128,7 +128,7 @@ The following are the features the APIs provide:<br>
 
 - - - -
  ### Phase 5 and 6 - Testing and Deployment
- - A test script was created to `test.py` to compute the performance of the API when simultaneous requests are hit. 
+ - A test script `test.py` was created to compute the performance of the API when simultaneous requests are hit. 
  - For 10 requests per second, the performance score was 0.1705 seconds.<br>
  ![performance](images/performance.jpeg)
  - The application is deployed on Heroku
