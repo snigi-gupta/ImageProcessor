@@ -9,7 +9,7 @@
 - [Testing and Deployment](#phase-5-and-6---testing-and-deployment)<br>
 - [Demo](#demo)<br>
 
-[Go to Bottom](#demo)
+[Go to Bottom](#conclusion)
 
 ## Objective:
 The aim of this task is to build a system that takes an image as an input from a user as a form of request and allows the user to edit/transform the image via url-parameters.
@@ -141,5 +141,11 @@ The following are the features the APIs provide:<br>
  To edit the image
  ![edit_image](images/edit_image.gif)
  
+ Other features
+ ![ellipse_crop](images/ellipse_image.jpeg)![rotate_image](images/rotate_image.jpeg)
+ 
+ - - - -
+ ## Conclusion
+ This code was created to provide an API service to the team for responsive, light-weight images. This project was also created to assess coding style of the candidate within a short period of time of 2 weeks.<br>
  
 [Go to Top](#imageprocessor)

@@ -110,7 +110,7 @@ def edit_file(file_name, img_height, img_width, img_rotate, img_type, img_ellips
         new_img = Image.fromarray(npImage)
 
     # convert to webp
-    if img_type:
+    if img_type or img_rotate or img_ellipse:
         file_extension = 'webp'
         new_filename = secure_filename(str(uuid.uuid4()) + str(app.config['UPLOAD_EXTENSIONS'].index(file_extension)))
     else:
